@@ -194,3 +194,13 @@ nav {
   padding: 0.5rem 1.8rem;
   border-radius: 6px;
 }
+
+.icon-delete {
+  cursor: pointer;
+  filter: invert(16%) sepia(6%) saturate(4710%) hue-rotate(217deg)
+    brightness(96%) contrast(85%);
+}
+
+.icon-delete:hover {
+  transform: translateY(-1px);
+}

@@ -4,6 +4,7 @@ const shortenURLDOM = document.querySelector(".btn-shorten-url");
 const inputURLDOM = document.querySelector(".input-url");
 const savedURLsDOM = document.querySelector(".saved-urls");
 const errorContainer = document.querySelector(".error-container");
+const deleteURLDOM = document.querySelector(".icon-delete");
 
 const errorCodes = {
   1: "Please add a link",
@@ -47,6 +48,7 @@ function addURLDom(originalLink, shortLink) {
         <div class="shortened-url-container">
         <p class="shortened-url">${shortLink}</p>
           <button class="btn-cyan btn-copy">Copy</button>
+          <img class="icon-delete" src="./images/icon-trash.svg" />
           </div>
       </div>
       `;
@@ -100,3 +102,22 @@ function loadURLsFromLS() {
 }
 
 loadURLsFromLS();
+
+savedURLsDOM.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("icon-delete")) return;
+
+  const clickedBtn = e.target;
+
+  const selectedContainer = clickedBtn.closest(".url-container");
+
+  const selectedURL = clickedBtn
+    .closest(".shortened-url-container")
+    .querySelector(".shortened-url").textContent;
+
+  const urlIndex = savedURLs.findIndex((url) => url.shortLink === selectedURL);
+  savedURLs.splice(urlIndex, 1);
+
+  localStorage.setItem("savedURLs", JSON.stringify(savedURLs));
+
+  selectedContainer.remove();
+});
