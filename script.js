@@ -2,9 +2,8 @@
 
 const shortenURLDOM = document.querySelector(".btn-shorten-url");
 const inputURLDOM = document.querySelector(".input-url");
-const savedURLs = document.querySelector(".saved-urls");
+const savedURLsDOM = document.querySelector(".saved-urls");
 const errorContainer = document.querySelector(".error-container");
-const copyBtn = document.querySelector(".btn-copy");
 
 const errorCodes = {
   1: "Please add a link",
@@ -32,6 +31,15 @@ async function shortenURL(url) {
   }
 }
 
+let savedURLs = [];
+function saveURL(originalLink, shortLink) {
+  const url = { originalLink, shortLink };
+  savedURLs.push(url);
+  localStorage.setItem("savedURLs", JSON.stringify(savedURLs));
+}
+
+// localStorage.clear();
+
 function addURLDom(originalLink, shortLink) {
   const markup = `
       <div class="url-container">
@@ -42,7 +50,7 @@ function addURLDom(originalLink, shortLink) {
           </div>
       </div>
       `;
-  savedURLs.insertAdjacentHTML("afterbegin", markup);
+  savedURLsDOM.insertAdjacentHTML("afterbegin", markup);
 }
 
 shortenURLDOM.addEventListener("click", async (e) => {
@@ -53,6 +61,8 @@ shortenURLDOM.addEventListener("click", async (e) => {
     const shortLink = await shortenURL(inputLink);
     if (!shortLink) return;
     addURLDom(inputLink, shortLink);
+    saveURL(inputLink, shortLink);
+    console.log(savedURLs);
     inputURLDOM.value = "";
   } catch (error) {
     console.error(error);
@@ -60,7 +70,7 @@ shortenURLDOM.addEventListener("click", async (e) => {
 });
 
 // copy link to clipboard functionality
-savedURLs.addEventListener("click", (e) => {
+savedURLsDOM.addEventListener("click", (e) => {
   if (!e.target.classList.contains("btn-copy")) return;
 
   const clickedBtn = e.target;
@@ -75,3 +85,18 @@ savedURLs.addEventListener("click", (e) => {
   clickedBtn.style.backgroundColor = "hsl(257, 27%, 26%)";
   clickedBtn.textContent = "Copied!";
 });
+
+// load URLs from local storage if any
+function loadURLsFromLS() {
+  const savedURLsLS = JSON.parse(localStorage.getItem("savedURLs"));
+
+  if (!savedURLsLS) return;
+
+  savedURLs = savedURLsLS;
+
+  savedURLs.forEach((url) => {
+    addURLDom(url.originalLink, url.shortLink);
+  });
+}
+
+loadURLsFromLS();
