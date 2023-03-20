@@ -1,9 +1,10 @@
 "use strict";
 
-const shortenUrl = document.querySelector(".btn-shorten-url");
-const inputUrlDOM = document.querySelector(".input-url");
-const savedUrls = document.querySelector(".saved-urls");
+const shortenURLDOM = document.querySelector(".btn-shorten-url");
+const inputURLDOM = document.querySelector(".input-url");
+const savedURLs = document.querySelector(".saved-urls");
 const errorContainer = document.querySelector(".error-container");
+const copyBtn = document.querySelector(".btn-copy");
 
 const errorCodes = {
   1: "Please add a link",
@@ -20,7 +21,8 @@ async function shortenURL(url) {
     const data = await res.json();
     const result = data.result;
 
-    if (!data.ok) throw Error(errorCodes[data.error_code]);
+    const errorCode = data.error_code;
+    if (!data.ok) throw Error(errorCodes[errorCode]);
 
     const { short_link: shortLink } = result;
     return shortLink;
@@ -34,25 +36,42 @@ function addURLDom(originalLink, shortLink) {
   const markup = `
       <div class="url-container">
         <p class="original-url">${originalLink}</p>
-        <div class="shortened-url">
-        <p>${shortLink}</p>
+        <div class="shortened-url-container">
+        <p class="shortened-url">${shortLink}</p>
           <button class="btn-cyan btn-copy">Copy</button>
           </div>
       </div>
       `;
-  savedUrls.insertAdjacentHTML("afterbegin", markup);
+  savedURLs.insertAdjacentHTML("afterbegin", markup);
 }
 
-shortenUrl.addEventListener("click", async (e) => {
+shortenURLDOM.addEventListener("click", async (e) => {
   try {
     e.preventDefault();
     errorContainer.textContent = "";
-    const inputLink = inputUrlDOM.value;
+    const inputLink = inputURLDOM.value;
     const shortLink = await shortenURL(inputLink);
     if (!shortLink) return;
     addURLDom(inputLink, shortLink);
-    inputUrlDOM.value = "";
+    inputURLDOM.value = "";
   } catch (error) {
     console.error(error);
   }
+});
+
+// copy link to clipboard functionality
+savedURLs.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("btn-copy")) return;
+
+  const clickedBtn = e.target;
+
+  const selectedURL = clickedBtn
+    .closest(".shortened-url-container")
+    .querySelector(".shortened-url").textContent;
+
+  // copy to clipboard
+  navigator.clipboard.writeText(selectedURL);
+
+  clickedBtn.style.backgroundColor = "hsl(257, 27%, 26%)";
+  clickedBtn.textContent = "Copied!";
 });

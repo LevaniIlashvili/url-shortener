@@ -180,13 +180,13 @@ nav {
   color: var(--very-dark-violet);
 }
 
-.shortened-url {
+.shortened-url-container {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.shortened-url p {
+.shortened-url-container p {
   color: var(--cyan);
 }
 
