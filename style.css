@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
+
+:root {
+  --gray: hsl(0, 0%, 75%);
+  --grayish-violet: hsl(257, 7%, 63%);
+  --dark-violet: hsl(257, 27%, 26%);
+  --very-dark-violet: hsl(260, 8%, 14%);
+  --cyan: hsl(180, 66%, 49%);
+  --error: hsl(0, 87%, 67%);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins";
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  color: var(--grayish-violet);
+}
+
+.container {
+  width: 75%;
+}
+
+nav {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5rem;
+}
+
+.nav-name-links,
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-links {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--grayish-violet);
+  gap: 1.5rem;
+}
+
+.nav-links a:hover {
+  color: var(--very-dark-violet);
+  cursor: pointer;
+}
+
+.nav-account {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.btn-login {
+  border: none;
+  color: var(--grayish-violet);
+  font-weight: 700;
+}
+
+.btn-login:hover {
+  cursor: pointer;
+  color: var(--very-dark-violet);
+}
+
+.btn-cyan {
+  border: none;
+  color: white;
+  font-weight: 700;
+  background-color: var(--cyan);
+}
+
+.btn-cyan:hover {
+  cursor: pointer;
+  text-shadow: 0 0 5px white;
+}
+
+.btn-sign-up,
+.btn-get-started {
+  padding: 0.6rem 1.1rem;
+  border-radius: 23px;
+}
+
+.hero {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+
+  width: 70%;
+}
+
+.hero-container p {
+  max-width: 40ch;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+.hero-image {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slogan {
+  line-height: 5.5rem;
+  font-size: 4.5rem;
+}
+
+.btn-get-started {
+  font-size: 1.1rem;
+  width: fit-content;
+  padding: 0.55rem 1.5rem;
+}
+
+.url-shortener {
+  width: 100%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  background-image: url("./images/bg-shorten-desktop.svg");
+  background-color: var(--dark-violet);
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  margin-bottom: 3rem;
+}
+
+.url-shortener form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.input-url {
+  width: 80%;
+  padding: 1rem 10px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+.btn-shorten-url {
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.error-container {
+  font-size: 0.85rem;
+  color: var(--error);
+  font-style: italic;
+}
+
+.url-container {
+  display: flex;
+  margin-bottom: 3rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.original-url {
+  color: var(--very-dark-violet);
+}
+
+.shortened-url {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.shortened-url p {
+  color: var(--cyan);
+}
+
+.btn-copy {
+  padding: 0.5rem 1.8rem;
+  border-radius: 6px;
+}
