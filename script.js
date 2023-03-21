@@ -5,6 +5,8 @@ const inputURLDOM = document.querySelector(".input-url");
 const savedURLsDOM = document.querySelector(".saved-urls");
 const errorContainer = document.querySelector(".error-container");
 const deleteURLDOM = document.querySelector(".icon-delete");
+const hamburgerBtn = document.querySelector(".icon-hamburger-menu");
+const hamburgerMenu = document.querySelector(".hamburger-menu");
 
 const errorCodes = {
   1: "Please add a link",
@@ -47,9 +49,11 @@ function addURLDom(originalLink, shortLink) {
         <p class="original-url">${originalLink}</p>
         <div class="shortened-url-container">
         <p class="shortened-url">${shortLink}</p>
-          <button class="btn-cyan btn-copy">Copy</button>
-          <img class="icon-delete" src="./images/icon-trash.svg" />
+          <div>
+            <button class="btn-cyan btn-copy">Copy</button>
+            <img class="icon-delete" src="./images/icon-trash.svg" />
           </div>
+        </div>
       </div>
       `;
   savedURLsDOM.insertAdjacentHTML("afterbegin", markup);
@@ -120,4 +124,8 @@ savedURLsDOM.addEventListener("click", (e) => {
   localStorage.setItem("savedURLs", JSON.stringify(savedURLs));
 
   selectedContainer.remove();
+});
+
+hamburgerBtn.addEventListener("click", () => {
+  hamburgerMenu.classList.toggle("closed");
 });
